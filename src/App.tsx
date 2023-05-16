@@ -30,7 +30,7 @@ const App = () => {
   });
 
   const [temperature, setTemperature] = useState(70);
-  const [y, setY] = useState(0); // added this line
+  const [y, setY] = useState(0);
 
   useEffect(() => {
     const ws = new WebSocket(
@@ -46,9 +46,9 @@ const App = () => {
       // convert data.temperature to Fahrenheit
       data.temperature = (data.temperature * 9) / 5 + 32;
       setTemperature(data.temperature);
-      setY(data.humidity); // added this line
+      setY(data.humidity);
       console.log(y);
-      console.log(temperature); // added this line
+      console.log(temperature);
     };
 
     ws.onclose = () => {
@@ -58,14 +58,6 @@ const App = () => {
     // Clean up the effect by closing the WebSocket connection when the component unmounts
     return () => ws.close();
   }, [temperature, y]);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setTemperature((prevTemperature) => prevTemperature + 0.1);
-  //   }, 200);
-
-  //   return () => clearInterval(interval);
-  // }, []);
 
   const renderPage = () => {
     switch (page) {
