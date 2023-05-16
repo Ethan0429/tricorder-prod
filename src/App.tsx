@@ -66,7 +66,7 @@ const App = () => {
       case 1:
         return (
           <>
-            <RealTimeGraph onDataUpdate={updatePercentage} y={10} />
+            <RealTimeGraph onDataUpdate={updatePercentage} y={y} />
             <PercentageCircle percentage={percentage} />
           </>
         );
@@ -75,7 +75,7 @@ const App = () => {
           <>
             <h2 className="centered-number">Temperature</h2>
             <div>
-              <Thermostat temperature={10} />
+              <Thermostat temperature={temperature} />
             </div>
           </>
         );
