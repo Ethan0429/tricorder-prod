@@ -33,7 +33,9 @@ const App = () => {
   const [y, setY] = useState(0); // added this line
 
   useEffect(() => {
-    const ws = new WebSocket("ws://your-node-server-url:8080");
+    const ws = new WebSocket(
+      "wss://excellent-memory-production.up.railway.app"
+    );
 
     ws.onopen = () => {
       console.log("Connected to server");
