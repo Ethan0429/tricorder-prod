@@ -17,7 +17,9 @@ wss.on("connection", (ws) => {
     wss.clients.forEach((client) => {
       if (client.readyState === OPEN) {
         // send message as JSON string
-        client.send(JSON.stringify(message));
+        const relay = JSON.stringify(message);
+        console.log("Relay: %s", relay);
+        client.send(relay);
       }
     });
   });
