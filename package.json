@@ -7,14 +7,16 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-gauge-chart": "^0.4.1",
-    "react-swipeable": "^7.0.0"
+    "react-swipeable": "^7.0.0",
+    "serve": "^14.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
