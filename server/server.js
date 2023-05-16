@@ -11,13 +11,14 @@ wss.on("connection", (ws) => {
 
   // When a message is received from a client (Raspberry Pi)
   ws.on("message", (message) => {
-    console.log("Received: %s", message);
+    const stringMessage = message.toString();
+    console.log("Received: %s", stringMessage);
 
     // Broadcast the message to all connected clients (React Apps)
     wss.clients.forEach((client) => {
       if (client.readyState === OPEN) {
-        // send message as JSON string
-        const relay = JSON.stringify(message);
+        // convert message to JSON
+        const relay = JSON.stringify({ relay: stringMessage });
         console.log("Relay: %s", relay);
         client.send(relay);
       }
