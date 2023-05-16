@@ -19,8 +19,10 @@ const Thermostat = ({ temperature }: { temperature: number }) => {
         nrOfLevels={5}
         percent={gaugeValue}
         textColor="#000"
+        hideText={true}
+        animDelay={500}
         needleColor="#000"
-        arcPadding={0.02}
+        arcPadding={0.03}
       />
       <p>{temperature.toFixed(1)} °F</p>
     </div>

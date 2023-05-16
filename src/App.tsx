@@ -43,8 +43,12 @@ const App = () => {
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      // convert data.temperature to Fahrenheit
+      data.temperature = (data.temperature * 9) / 5 + 32;
       setTemperature(data.temperature);
       setY(data.humidity); // added this line
+      console.log(y);
+      console.log(temperature); // added this line
     };
 
     ws.onclose = () => {
@@ -53,7 +57,7 @@ const App = () => {
 
     // Clean up the effect by closing the WebSocket connection when the component unmounts
     return () => ws.close();
-  }, []);
+  }, [temperature, y]);
 
   // useEffect(() => {
   //   const interval = setInterval(() => {

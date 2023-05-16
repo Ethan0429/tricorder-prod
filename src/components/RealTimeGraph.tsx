@@ -28,7 +28,7 @@ const RealTimeGraph = ({
   useEffect(() => {
     const interval = setInterval(updateData, updateInterval);
     return () => clearInterval(interval);
-  }, []);
+  }, [y]);
 
   const chartOptions = {
     chart: {
@@ -49,8 +49,8 @@ const RealTimeGraph = ({
       type: "datetime" as const,
     },
     yaxis: {
-      min: -1,
-      max: 1,
+      min: 0,
+      max: 100,
       tickAmount: 8,
       labels: {
         formatter: function (value: number) {
