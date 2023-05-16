@@ -16,7 +16,8 @@ wss.on("connection", (ws) => {
     // Broadcast the message to all connected clients (React Apps)
     wss.clients.forEach((client) => {
       if (client.readyState === OPEN) {
-        client.send(message);
+        // send message as JSON string
+        client.send(JSON.stringify(message));
       }
     });
   });
