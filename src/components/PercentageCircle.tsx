@@ -1,6 +1,6 @@
 import "./PercentageCircle.css";
 
-const PercentageCircle = ({ percentage }) => {
+const PercentageCircle = ({ percentage }: { percentage: number }) => {
   const strokeDasharray = `${percentage}, 100`;
 
   return (

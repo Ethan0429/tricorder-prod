@@ -8,11 +8,11 @@ const App = () => {
   const [percentage, setPercentage] = useState(0);
   const [page, setPage] = useState(1);
 
-  const updatePercentage = (value) => {
+  const updatePercentage = (value: number) => {
     setPercentage(Math.abs(Math.round(value * 100)));
   };
 
-  const onSwiped = (direction) => {
+  const onSwiped = (direction: unknown) => {
     if (direction === "Left" && page < 3) {
       setPage(page + 1);
     } else if (direction === "Right" && page > 1) {
@@ -30,22 +30,43 @@ const App = () => {
   });
 
   const [temperature, setTemperature] = useState(70);
+  const [y, setY] = useState(0); // added this line
 
-  // Simulate temperature change (you can replace this with your temperature source)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTemperature((prevTemperature) => prevTemperature + 0.1);
-    }, 200);
+    const ws = new WebSocket("ws://your-node-server-url:8080");
 
-    return () => clearInterval(interval);
+    ws.onopen = () => {
+      console.log("Connected to server");
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      setTemperature(data.temperature);
+      setY(data.humidity); // added this line
+    };
+
+    ws.onclose = () => {
+      console.log("Disconnected from server");
+    };
+
+    // Clean up the effect by closing the WebSocket connection when the component unmounts
+    return () => ws.close();
   }, []);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setTemperature((prevTemperature) => prevTemperature + 0.1);
+  //   }, 200);
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const renderPage = () => {
     switch (page) {
       case 1:
         return (
           <>
-            <RealTimeGraph onDataUpdate={updatePercentage} y={Math.sin(page)} />
+            <RealTimeGraph onDataUpdate={updatePercentage} y={10} />
             <PercentageCircle percentage={percentage} />
           </>
         );
@@ -54,7 +75,7 @@ const App = () => {
           <>
             <h2 className="centered-number">Temperature</h2>
             <div>
-              <Thermostat temperature={temperature} />
+              <Thermostat temperature={10} />
             </div>
           </>
         );

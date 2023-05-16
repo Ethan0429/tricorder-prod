@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import "./RealTimeGraph.css";
 
-const RealTimeGraph = ({ onDataUpdate, y }) => {
-  const [data, setData] = useState([]);
+const RealTimeGraph = ({
+  y,
+  onDataUpdate,
+}: {
+  y: number;
+  onDataUpdate: (y: number) => void;
+}) => {
+  const [data, setData] = useState<{ x: number; y: number }[]>([]);
 
   const maxDataPoints = 100; // Define the maximum number of data points to display, relative to time interval
   const updateInterval = 200; // Define how often the chart should update in milliseconds
@@ -27,27 +33,27 @@ const RealTimeGraph = ({ onDataUpdate, y }) => {
   const chartOptions = {
     chart: {
       id: "realtime",
-      type: "line",
+      type: "line" as const,
       toolbar: {
         show: true,
       },
       animations: {
         enabled: false,
-        easing: "linear",
+        easing: "linear" as const,
       },
       zoom: {
         enabled: false,
       },
     },
     xaxis: {
-      type: "datetime",
+      type: "datetime" as const,
     },
     yaxis: {
       min: -1,
       max: 1,
       tickAmount: 8,
       labels: {
-        formatter: function (value) {
+        formatter: function (value: number) {
           return value.toFixed(2);
         },
       },
@@ -114,7 +120,7 @@ const RealTimeGraph = ({ onDataUpdate, y }) => {
 
   return (
     <div className="chart-wrapper">
-      <Chart options={chartOptions} series={series} type="line" />
+      <Chart options={chartOptions} series={series} />
     </div>
   );
 };

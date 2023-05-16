@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import GaugeChart from "react-gauge-chart";
 
-const Thermostat = ({ temperature }) => {
+const Thermostat = ({ temperature }: { temperature: number }) => {
   const [gaugeValue, setGaugeValue] = useState(0);
 
   useEffect(() => {
@@ -20,8 +20,6 @@ const Thermostat = ({ temperature }) => {
         percent={gaugeValue}
         textColor="#000"
         needleColor="#000"
-        needleWidth={5}
-        needleBaseRadius={6}
         arcPadding={0.02}
       />
       <p>{temperature.toFixed(1)} °F</p>
